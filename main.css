@@ -71,6 +71,10 @@ body {
     border-radius: 4px;
     overflow: hidden;
 }
+
+.form-input {
+    width: 100%;
+}
 .app_creat-status-non {
     width: 20px;
     height: 20px;
