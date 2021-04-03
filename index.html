@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <link rel="stylesheet" href="./main.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  
+  <title>Frontend Mentor | Todo app</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  
+</head>
+<body>
+  <div class=" header header-light header-dark">
+    <div class="app">
+      <div class="header-title">
+        <h1>TODO</h1>
+        <img src="./images/icon-moon.svg" alt="" class="img-status img-status-light">
+      </div>
+      <div class="app_creat">
+        <div class="app_creat-status-non app_creat-status-add"></div>
+        <input type="text" class="app_creat-input" placeholder="Creat a new todo...">
+      </div>
+      <div class="app-list">
+        <ul class="list-tasks">
+          <li class="list-tasks-item">
+             <div class="app_creat-status-non"></div>
+             <span class="list-tasks-item-content">20 minutes learning</span>
+          </li>
+          <li class="list-tasks-item">
+            <div class="app_creat-status-ok">
+            </div>
+            <span class="list-tasks-item-content list-tasks-item-content--ok ">30 minutes learning</span>
+         </li>
+         <li class="list-tasks-item">
+          <div class="app_creat-status-non"></div>
+          <span class="list-tasks-item-content">40 minutes learning</span>
+         </li>
+         <li class="list-tasks-item-infor">
+          <button class="btn app_creat-status-no">items left</button>
+          <div class="app_creat-status-type">
+              <button class="btn app_creat-status-type--kind">All</button>
+              <button class="btn app_creat-status-type--kind">Active</button>
+              <button class="btn app_creat-status-type--kind">Completed</button>
+          </div>
+          <button class="btn list-tasks-item-clear">Clear Completed</button>
+         </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <span class="instruction"> Drag and drop to reorder list</span>
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+    Coded by <a href="#">Your Name Here</a>.
+  </div>
+</body>
+</html>
