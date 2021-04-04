@@ -18,8 +18,17 @@ function rederTodo (todo) {
     else {
     list.prepend(item);
     }
+    setRemain();
 }
 
+// Set item remain
+function setRemain () {
+    const remain = document.querySelector('.app_creat-status-no');
+    const num = todoItems.filter (item => item.checked !=true).length;
+    remain.innerHTML =`
+    ${num} items left
+    `;
+}
 
 function addTodo (text) {
     const todo ={ 
@@ -33,10 +42,9 @@ function addTodo (text) {
 
 function toggleOk (key) {
     const index = todoItems.findIndex(item => item.id == Number(key));
-    console.log(index);
     todoItems[index].checked = !todoItems[index].checked;
     rederTodo(todoItems[index]);
-
+    setRemain();
 }
  
 // Get input to todo
@@ -68,7 +76,14 @@ const list = document.querySelector(".list-tasks");
 list.addEventListener('click', event => {
     if (event.target.classList.contains("app_creat-status-non")) {
         const itemKey = event.target.parentElement.dataset.key;
-        console.log(itemKey);
         toggleOk (itemKey);
     }
 });
+
+const clear = document.querySelector('.list-tasks-item-clear');
+clear.addEventListener('click', e => {
+    const todoOK = document.querySelectorAll('.list-tasks-item-content--ok');
+    console.log(todoOK);
+    todoOK.forEach( e => e.parentElement.remove());
+})
+
