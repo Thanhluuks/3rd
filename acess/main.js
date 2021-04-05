@@ -1,6 +1,7 @@
 let todoItems = [];
 
 // Render todo
+setRemain();
 function rederTodo (todo) {
     const itemCheck = document.querySelector(`[data-key = '${todo.id}']`);
     const ischecked = todo.checked ? "ok" : "";
@@ -83,7 +84,55 @@ list.addEventListener('click', event => {
 const clear = document.querySelector('.list-tasks-item-clear');
 clear.addEventListener('click', e => {
     const todoOK = document.querySelectorAll('.list-tasks-item-content--ok');
-    console.log(todoOK);
     todoOK.forEach( e => e.parentElement.remove());
+    todoItems = todoItems.filter (item => item.checked ==false);
+    setRemain();
 })
 
+//  Status
+    // Active
+const statusActive = document.querySelector(".app-status-active");
+    statusActive.addEventListener('click', e => {
+    var displayItems = todoItems.filter(e => e.checked ==false);
+    renderAll(displayItems);
+    console.log(displayItems);
+});
+    // Completed
+const statusCompleted = document.querySelector ('.app-status-completed');
+    statusCompleted.addEventListener('click', e => {
+        var displayItems = todoItems.filter(e => e.checked ==true);
+        renderAll(displayItems);
+        console.log(displayItems);
+});
+    //All
+const statusAll = document.querySelector (".app-status-all");
+statusAll.addEventListener('click', e => {
+    var displayItems = todoItems;
+    renderAll(displayItems);
+    console.log(displayItems);
+});
+
+
+function renderAll(displayItems) {
+    const clearScreen = document.querySelectorAll('.list-tasks-item');
+    clearScreen.forEach(items => items.remove());
+
+    const list = document.querySelector(".list-tasks") ;
+    displayItems.forEach( e => {
+        const item = document.createElement("li");
+        item.className = "list-tasks-item";
+        item.setAttribute('data-key', e.id);
+        const ischecked = e.checked ? "ok"  : "";
+        item.innerHTML = `
+        <div class="app_creat-status-non app_creat-status-${ischecked}"></div>
+        <span class="list-tasks-item-content list-tasks-item-content--${ischecked}">${e.text}</span>
+        `;
+        list.prepend(item);  
+    });
+    setRemain();
+};
+
+    
+    
+
+    
