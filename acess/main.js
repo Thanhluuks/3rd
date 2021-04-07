@@ -8,19 +8,20 @@ function rederTodo (todo) {
     const list = document.querySelector(".list-tasks") ;
     const item = document.createElement("li");
     item.className = "list-tasks-item";
+    item.setAttribute('draggable',true);
     item.setAttribute('data-key', todo.id);
     item.innerHTML = `
-    <div class="app_creat-status-non app_creat-status-${ischecked}"></div>
-    <span class="list-tasks-item-content list-tasks-item-content--${ischecked}">${todo.text}</span>
-    `;
-    if (itemCheck) {
-        list.replaceChild(item, itemCheck)
+   <div class="app_creat-status-non app_creat-status-${ischecked}"></div>
+   <span class="list-tasks-item-content list-tasks-item-content--${ischecked}">${todo.text}</span>
+   `;
+   if (itemCheck) {
+       list.replaceChild(item, itemCheck)
     }
     else {
-    list.prepend(item);
+        list.prepend(item);
     }
     setRemain();
-}
+};
 
 // Set item remain
 function setRemain () {
@@ -95,21 +96,18 @@ const statusActive = document.querySelector(".app-status-active");
     statusActive.addEventListener('click', e => {
     var displayItems = todoItems.filter(e => e.checked ==false);
     renderAll(displayItems);
-    console.log(displayItems);
 });
     // Completed
 const statusCompleted = document.querySelector ('.app-status-completed');
     statusCompleted.addEventListener('click', e => {
         var displayItems = todoItems.filter(e => e.checked ==true);
         renderAll(displayItems);
-        console.log(displayItems);
 });
     //All
 const statusAll = document.querySelector (".app-status-all");
 statusAll.addEventListener('click', e => {
     var displayItems = todoItems;
     renderAll(displayItems);
-    console.log(displayItems);
 });
 
 
@@ -121,7 +119,9 @@ function renderAll(displayItems) {
     displayItems.forEach( e => {
         const item = document.createElement("li");
         item.className = "list-tasks-item";
+        item.setAttribute ('draggable', 'true');
         item.setAttribute('data-key', e.id);
+
         const ischecked = e.checked ? "ok"  : "";
         item.innerHTML = `
         <div class="app_creat-status-non app_creat-status-${ischecked}"></div>
@@ -132,7 +132,62 @@ function renderAll(displayItems) {
     setRemain();
 };
 
-    
-    
+// Drag or Drop
+const check = document.querySelector('.list-tasks');
+check.addEventListener('mousedown', dragDrop,false);
+function dragDrop() {
+    var itemsDrag = document.querySelectorAll('.list-tasks-item');
+    var dragSel =null;
+    // Drag Start
+    function handleDragStart(e) {
+    this.style.opacity = "0.5";
+    dragSel = this;
+    console.log(dragSel);
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData ('text/html', this.innerHTML);
+    };
+    // Drag over
+    function handleDragOver (e) {
+        if (e.preventDefault()) {
+            e.preventDefault();
+        }
+        e.dataTransfer.dropEffect = 'move';
+        return false;
+    }
+    // // Drag enter
+    // function handleDragEnter(e) {
+    //     this.classList.add("over");
+    // }
 
+    // // Drag leave
+    // function handleDrangLeave (e) {
+    //     this.classList.remove('over');
+    // }
+    // Drag Drop
+    function handleDrop (e) {
+        e.stopImmediatePropagation();
+        e.stopPropagation();
+        if (dragSel != this) {
+            console.log(dragSel);
+            dragSel.innerHTML = this.innerHTML;
+            this.innerHTML = e.dataTransfer.getData('text/html');
+        }
+        return false;
+    }
+    // Drag End
+    function handleDragEnd (e) {
+        this.style.opacity = "1";
+        itemsDrag.forEach(function (item) {
+            item.classList.remove('over');
+        });
+    };
+    itemsDrag.forEach(function(item) {
+    item.addEventListener('dragstart', handleDragStart, false);
+    // item.addEventListener('dragenter', handleDragEnter,false);
+    item.addEventListener('dragover', handleDragOver, false);
+    // item.addEventListener ('dragleave',handleDrangLeave,false);
+    item.addEventListener('drop', handleDrop, false);
+    item.addEventListener('dragend', handleDragEnd, false); 
+    });
+};
     
