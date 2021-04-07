@@ -135,6 +135,8 @@ function renderAll(displayItems) {
 // Drag or Drop
 const check = document.querySelector('.list-tasks');
 check.addEventListener('mousedown', dragDrop,false);
+check.addEventListener('pointerdown', dragDrop,false);
+
 function dragDrop() {
     var itemsDrag = document.querySelectorAll('.list-tasks-item');
     var dragSel =null;
