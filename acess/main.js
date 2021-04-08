@@ -13,6 +13,7 @@ function rederTodo (todo) {
     item.innerHTML = `
    <div class="app_creat-status-non app_creat-status-${ischecked}"></div>
    <span class="list-tasks-item-content list-tasks-item-content--${ischecked}">${todo.text}</span>
+   <div class="app_creat-status--remove"></div>
    `;
    if (itemCheck) {
        list.replaceChild(item, itemCheck)
@@ -72,7 +73,14 @@ add.addEventListener ('click', e => {
     input.focus();
     }
 })
-
+// Clear Items
+const clear = document.querySelector('.list-tasks-item-clear');
+clear.addEventListener('click', e => {
+    const todoOK = document.querySelectorAll('.list-tasks-item-content--ok');
+    todoOK.forEach( e => e.parentElement.remove());
+    todoItems = todoItems.filter (item => item.checked ==false);
+    setRemain();
+});
 // Change status todo to OK
 const list = document.querySelector(".list-tasks");
 list.addEventListener('click', event => {
@@ -82,19 +90,10 @@ list.addEventListener('click', event => {
     }
 });
 
-const clear = document.querySelector('.list-tasks-item-clear');
-clear.addEventListener('click', e => {
-    const todoOK = document.querySelectorAll('.list-tasks-item-content--ok');
-    todoOK.forEach( e => e.parentElement.remove());
-    todoItems = todoItems.filter (item => item.checked ==false);
-    setRemain();
-})
 
 // Drag or Drop
 const check = document.querySelector('.list-tasks');
 check.addEventListener('mousedown', dragDrop,false);
-check.addEventListener('pointerdown', dragDrop,false);
-
 function dragDrop() {
     var itemsDrag = document.querySelectorAll('.list-tasks-item');
     var dragSel =null;
@@ -102,7 +101,6 @@ function dragDrop() {
     function handleDragStart(e) {
     this.style.opacity = "0.5";
     dragSel = this;
-    console.log(dragSel);
     e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData ('text/html', this.innerHTML);
     };
@@ -128,7 +126,6 @@ function dragDrop() {
         e.stopImmediatePropagation();
         e.stopPropagation();
         if (dragSel != this) {
-            console.log(dragSel);
             dragSel.innerHTML = this.innerHTML;
             this.innerHTML = e.dataTransfer.getData('text/html');
         }
@@ -150,6 +147,14 @@ function dragDrop() {
     item.addEventListener('dragend', handleDragEnd, false); 
     });
 };
+// Clear Item
+document.addEventListener('click', e => {
+    if(e.target.classList.contains('app_creat-status--remove')) {
+    e.target.parentElement.remove();
+    todoItems= todoItems.filter(item => item.id != e.target.parentElement.dataset.key);
+    };
+    setRemain();
+})
 //  Status
 var statusActive = document.querySelector(".app-status-active");
 var statusCompleted = document.querySelector ('.app-status-completed');
@@ -198,6 +203,8 @@ function renderAll(displayItems) {
         item.innerHTML = `
         <div class="app_creat-status-non app_creat-status-${ischecked}"></div>
         <span class="list-tasks-item-content list-tasks-item-content--${ischecked}">${e.text}</span>
+        <div class="app_creat-status--remove"></div>
+        
         `;
         list.prepend(item);  
     });

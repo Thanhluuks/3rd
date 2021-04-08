@@ -8,7 +8,7 @@
 :root {
     --primary-color: #fff;
     --secondly-color: #000;
-    --bg-color: #fafafa;
+    --bg-color: #e7e6ec;
     --app-width: 540px;
     --text-color: #4c4c56;
     --subtext-color: #9d9ca4;
@@ -51,8 +51,10 @@ body {
     width: var(--app-width);
     display: flex;
     justify-content: space-between;
-    padding-left: 50%;
-    transform: translate(-270px, 50px);
+    margin: auto;
+    transform: translateY(60px);
+    /* padding-left: 50%; */
+    /* transform: translate(-270px, 50px); */
 
 }
 
@@ -133,18 +135,7 @@ body {
     overflow: hidden;
 }
 
-.app_creat-status-add::after {
-    background-image: url(../images/icon-cross.svg);
-    transform: rotate(45deg);
-    background-size: 80%;
-    background-repeat: no-repeat;
-    position: absolute;
-    top: 3px;
-    content: "";
-    display: block;
-    height: 100%;
-    width: 100%;
-}
+
 .app_creat-status-ok {
     border-radius: 50%;
     border: 1px solid #c2c4ca;
@@ -153,6 +144,16 @@ body {
     width: 20px;
     height: 20px;
     position: relative;
+}
+
+.app_creat-status--remove {
+    cursor: pointer;
+    background-image: url('../images/icon-cross.svg');
+    background-repeat: no-repeat;
+    height: 20px;
+    width: 20px;
+    position: relative;
+    right: 20px;
 }
 
 .app_creat-status-ok::after {
@@ -194,6 +195,7 @@ body {
 
 .list-tasks {
     list-style: none;
+    position: relative;
 
 }
 
@@ -279,9 +281,43 @@ body {
 .over {
     border: 3px dotted #666;
   }
-@media screen and (max-width: 600px) {
-    :root {
-    --app-width: 300px;
 
+.list-tasks-item-infor-s {
+    display: none;
+}
+@media screen and (max-width: 700px) {
+    :root {
+    --app-width: 90vw;
+    }
+    .list-tasks-item-infor-s {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: calc(100% + 16px);
+        background-color: var(--primary-color);
+        width: 100%;
+        margin: 0;
+        border-radius: 2px;
+        box-shadow: 1px 2px 2px 2px var(--box-shadow);
+
+    }
+
+    .app_creat-status-non {
+        width: 30px;
+        height: 30px;
+        margin: 0 30px;
+    
+    }
+    .app_creat-status-type {
+        display: none;
+    }
+
+    
+
+    .app_creat-status-ok::after {
+        background-size: 100%;
+        top: 0;
+        right: 0;
     }
 }
