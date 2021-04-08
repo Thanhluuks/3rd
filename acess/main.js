@@ -165,7 +165,6 @@ var statusAll = document.querySelector (".app-status-all");
     statusActive.style.color='#4980f4';
     statusCompleted.style.color='#5c5e77';
     statusAll.style.color='#5c5e77';
-
     renderAll(displayItems);
 });
     // Completed
@@ -187,7 +186,39 @@ statusAll.addEventListener('click', e => {
     renderAll(displayItems);
 });
 
+//  SORT F0R MOBILE 
+//  Status
+var statusActive1 = document.querySelectorAll(".app-status-active")[1];
+var statusCompleted1 = document.querySelectorAll ('.app-status-completed')[1];
+var statusAll1 = document.querySelectorAll (".app-status-all")[1];
+// Active
+    statusActive1.addEventListener('click', e => {
+    var displayItems = todoItems.filter(e => e.checked ==false);
+    statusActive1.style.color='#4980f4';
+    statusCompleted1.style.color='#5c5e77';
+    statusAll1.style.color='#5c5e77';
+    renderAll(displayItems);
+});
+    // Completed
+    statusCompleted1.addEventListener('click', e => {
+        var displayItems = todoItems.filter(e => e.checked ==true);
+        statusCompleted1.style.color='#4980f4';
+        statusAll1.style.color='#5c5e77';
+        statusActive1.style.color='#5c5e77';
 
+        renderAll(displayItems);
+});
+    //All
+statusAll1.addEventListener('click', e => {
+    var displayItems = todoItems;
+    statusAll1.style.color='#4980f4';
+    statusActive1.style.color='#5c5e77';
+    statusCompleted1.style.color='#5c5e77';
+
+    renderAll(displayItems);
+});
+
+// 
 function renderAll(displayItems) {
     const clearScreen = document.querySelectorAll('.list-tasks-item');
     clearScreen.forEach(items => items.remove());

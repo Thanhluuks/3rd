@@ -289,6 +289,13 @@ body {
     :root {
     --app-width: 90vw;
     }
+    .app_creat-status-type {
+        display: none;
+    }
+
+    .app_creat-status-type-s {
+        display: block;
+    }
     .list-tasks-item-infor-s {
         display: flex;
         align-items: center;
@@ -302,17 +309,17 @@ body {
         box-shadow: 1px 2px 2px 2px var(--box-shadow);
 
     }
-
+    
     .app_creat-status-non {
         width: 30px;
         height: 30px;
-        margin: 0 30px;
     
     }
-    .app_creat-status-type {
-        display: none;
+    .app_creat-status-add {
+        width: 30px;
+        height: 24px;
     }
-
+    
     
 
     .app_creat-status-ok::after {
