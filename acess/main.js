@@ -90,48 +90,6 @@ clear.addEventListener('click', e => {
     setRemain();
 })
 
-//  Status
-    // Active
-const statusActive = document.querySelector(".app-status-active");
-    statusActive.addEventListener('click', e => {
-    var displayItems = todoItems.filter(e => e.checked ==false);
-    renderAll(displayItems);
-});
-    // Completed
-const statusCompleted = document.querySelector ('.app-status-completed');
-    statusCompleted.addEventListener('click', e => {
-        var displayItems = todoItems.filter(e => e.checked ==true);
-        renderAll(displayItems);
-});
-    //All
-const statusAll = document.querySelector (".app-status-all");
-statusAll.addEventListener('click', e => {
-    var displayItems = todoItems;
-    renderAll(displayItems);
-});
-
-
-function renderAll(displayItems) {
-    const clearScreen = document.querySelectorAll('.list-tasks-item');
-    clearScreen.forEach(items => items.remove());
-
-    const list = document.querySelector(".list-tasks") ;
-    displayItems.forEach( e => {
-        const item = document.createElement("li");
-        item.className = "list-tasks-item";
-        item.setAttribute ('draggable', 'true');
-        item.setAttribute('data-key', e.id);
-
-        const ischecked = e.checked ? "ok"  : "";
-        item.innerHTML = `
-        <div class="app_creat-status-non app_creat-status-${ischecked}"></div>
-        <span class="list-tasks-item-content list-tasks-item-content--${ischecked}">${e.text}</span>
-        `;
-        list.prepend(item);  
-    });
-    setRemain();
-};
-
 // Drag or Drop
 const check = document.querySelector('.list-tasks');
 check.addEventListener('mousedown', dragDrop,false);
@@ -192,4 +150,72 @@ function dragDrop() {
     item.addEventListener('dragend', handleDragEnd, false); 
     });
 };
+//  Status
+var statusActive = document.querySelector(".app-status-active");
+var statusCompleted = document.querySelector ('.app-status-completed');
+var statusAll = document.querySelector (".app-status-all");
+// Active
+    statusActive.addEventListener('click', e => {
+    var displayItems = todoItems.filter(e => e.checked ==false);
+    statusActive.style.color='#4980f4';
+    statusCompleted.style.color='#5c5e77';
+    statusAll.style.color='#5c5e77';
+
+    renderAll(displayItems);
+});
+    // Completed
+    statusCompleted.addEventListener('click', e => {
+        var displayItems = todoItems.filter(e => e.checked ==true);
+        statusCompleted.style.color='#4980f4';
+        statusAll.style.color='#5c5e77';
+        statusActive.style.color='#5c5e77';
+
+        renderAll(displayItems);
+});
+    //All
+statusAll.addEventListener('click', e => {
+    var displayItems = todoItems;
+    statusAll.style.color='#4980f4';
+    statusActive.style.color='#5c5e77';
+    statusCompleted.style.color='#5c5e77';
+
+    renderAll(displayItems);
+});
+
+
+function renderAll(displayItems) {
+    const clearScreen = document.querySelectorAll('.list-tasks-item');
+    clearScreen.forEach(items => items.remove());
+
+    const list = document.querySelector(".list-tasks") ;
+    displayItems.forEach( e => {
+        const item = document.createElement("li");
+        item.className = "list-tasks-item";
+        item.setAttribute ('draggable', 'true');
+        item.setAttribute('data-key', e.id);
+
+        const ischecked = e.checked ? "ok"  : "";
+        item.innerHTML = `
+        <div class="app_creat-status-non app_creat-status-${ischecked}"></div>
+        <span class="list-tasks-item-content list-tasks-item-content--${ischecked}">${e.text}</span>
+        `;
+        list.prepend(item);  
+    });
+    setRemain();
+};
+
+// Change Dark - Light them
+
+const themChange = document.querySelector('.img-status');
+themChange.addEventListener('click', e => {
+    document.querySelector('.header-light').classList.toggle('header-dark');
+    document.querySelector('.img-status-light').classList.toggle('img-status-dark');
+    if (document.documentElement.dataset.theme != "dark") {
+        document.documentElement.setAttribute('data-theme', 'dark');
+    }
+    else {
+        document.documentElement.setAttribute('data-theme', 'light');
+    }
+
+});
     
